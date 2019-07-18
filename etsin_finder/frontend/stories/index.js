@@ -57,6 +57,30 @@ import TogglableAgentList from '../js/components/dataset/togglableAgentList'
 import Agent from '../js/components/dataset/agent'
 import Sidebar from '../js/components/dataset/sidebar'
 import License from '../js/components/dataset/sidebar/special/license'
+// Qvain Light components
+import {
+  CancelButton,
+  SaveButton,
+  DangerButton,
+  ButtonGroup,
+  FileItem,
+  ButtonLabel,
+  EditButton,
+  DeleteButton,
+  FilePickerButton,
+  FilePickerButtonInverse,
+  FilePickerButtonText
+} from '../js/components/qvain/general/buttons'
+import Card, {
+  Container as QvainBaseContainer,
+  ContainerLight,
+  ContainerSubsection,
+  ContainerSubsectionBottom,
+  QvainContainer,
+  SubHeader,
+  SubHeaderText,
+  FileContainer
+} from '../js/components/qvain/general/card'
 
 import EsRes from './esRes'
 import MetaxRes, { MetaxRemote } from './metaxRes'
@@ -779,3 +803,79 @@ const P = styled.p`
   padding: 0.6em 1em;
   text-align: center;
 `
+
+// QVAIN LIGHT
+
+storiesOf('Qvain Light', module)
+  .add('Cards and Sections', () => (
+    <Container center maxWidth="800px">
+      <ComponentCode displayName={() => 'Card'}>
+        <Card>Card</Card>
+      </ComponentCode>
+      <Separator />
+      <ComponentCode displayName={() => 'Container'}>
+        <QvainBaseContainer>Container</QvainBaseContainer>
+      </ComponentCode>
+      <Separator />
+      <ComponentCode displayName={() => 'ContainerLight'}>
+        <ContainerLight>Container Light (less code, use with ContainerSubsection)</ContainerLight>
+      </ComponentCode>
+    </Container>
+  ))
+  .add('Buttons', () => (
+    <Container center maxWidth="800px">
+      <ComponentCode displayName={() => 'CancelButton'}>
+        <CancelButton>Cancel</CancelButton>
+      </ComponentCode>
+      <Separator />
+      <ComponentCode displayName={() => 'SaveButton'}>
+        <SaveButton>Accept</SaveButton>
+      </ComponentCode>
+      <Separator />
+      <ComponentCode displayName={() => 'DangerButton'}>
+        <DangerButton>Danger</DangerButton>
+      </ComponentCode>
+      <Separator />
+      <ComponentCode displayName={() => 'EditButton'}>
+        <EditButton />
+      </ComponentCode>
+      <Separator />
+      <ComponentCode displayName={() => 'DeleteButton'}>
+        <DeleteButton />
+      </ComponentCode>
+      <Separator />
+      <ComponentCode displayName={() => 'ButtonGroup'}>
+        <ButtonGroup>
+          <EditButton />
+          <DeleteButton />
+        </ButtonGroup>
+      </ComponentCode>
+      <Separator />
+      <ComponentCode displayName={() => 'FilePickerButton'}>
+        <FilePickerButton>
+          <FilePickerButtonText>File Picker</FilePickerButtonText>
+        </FilePickerButton>
+      </ComponentCode>
+      <Separator />
+      <ComponentCode displayName={() => 'FilePickerButtonInverse'}>
+        <FilePickerButtonInverse>
+          <ComponentCode displayName={() => 'FilePickerButtonText'}>
+            <FilePickerButtonText>File Picker</FilePickerButtonText>
+          </ComponentCode>
+        </FilePickerButtonInverse>
+      </ComponentCode>
+    </Container>
+  ))
+  .add('File Related', () => (
+    <Container center maxWidth="800px">
+      <ComponentCode displayName={() => 'FileItem'}>
+        <FileItem>File List Item</FileItem>
+      </ComponentCode>
+      <Separator />
+      <ComponentCode displayName={() => 'ButtonLabel'}>
+        <FileItem>
+          <ButtonLabel>Button Label</ButtonLabel>
+        </FileItem>
+      </ComponentCode>
+    </Container>
+  ))
