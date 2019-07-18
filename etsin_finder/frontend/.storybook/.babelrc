@@ -1,0 +1,33 @@
+{
+  "env": {
+    "test": {
+      "plugins": [
+        ["@babel/plugin-proposal-decorators", { "legacy": true }],
+        ["@babel/plugin-proposal-class-properties", { "loose": true }],
+        "@babel/plugin-syntax-dynamic-import",
+        ["@babel/plugin-transform-runtime"]
+      ],
+      "presets": [
+        ["@babel/env", { "useBuiltIns": "entry", "corejs": 2, "targets": "> 0.25%, not dead" }],
+        "@babel/preset-react"
+      ]
+    }
+  },
+  "plugins": [
+    ["@babel/plugin-proposal-decorators", { "legacy": true }],
+    ["@babel/plugin-proposal-class-properties", { "loose": true }],
+    "@loadable/babel-plugin",
+    "@babel/plugin-syntax-dynamic-import",
+    "@babel/plugin-proposal-object-rest-spread"
+  ],
+  "presets": [
+    [
+      "@babel/env",
+      {
+        "modules": false,
+        "targets": "> 0.25%, not dead"
+      }
+    ],
+    "@babel/preset-react"
+  ]
+}
