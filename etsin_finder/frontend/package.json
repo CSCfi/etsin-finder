@@ -51,6 +51,7 @@
     "p-min-delay": "2.0.0",
     "polished": "^3.4.0",
     "prop-types": "^15.7.2",
+    "puppeteer": "^1.18.1",
     "react": "^16.8.6",
     "react-clipboard-icon": "1.1.0",
     "react-copy-to-clipboard": "5.0.1",
@@ -97,11 +98,13 @@
     "history": "4.7.2",
     "jest": "^24.8.0",
     "jest-cli": "^24.8.0",
+    "jest-puppeteer": "^4.3.0",
     "react-element-to-jsx-string": "^14.0.2",
     "sinon": "^7.3.2"
   },
   "jest": {
-    "setupTestFrameworkScriptFile": "./__tests__/test-setup.js",
+    "preset": "jest-puppeteer",
+    "setupFilesAfterEnv": ["./__tests__/test-setup.js"],
     "moduleNameMapper": {
       "Components/(.*)$": "<rootDir>/js/components/$1",
       "Stores/(.*)$": "<rootDir>/js/stores/$1",
