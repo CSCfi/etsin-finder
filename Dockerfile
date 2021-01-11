@@ -2,9 +2,9 @@
 FROM python:3.6
 
 # set work directory
-WORKDIR /code
+WORKDIR /etsin_finder
 
-COPY requirements.txt /code/
+COPY requirements.txt /etsin_finder/
 
 RUN apt update
 RUN apt-get install libxml2-dev libxmlsec1-dev libxmlsec1-openssl -y
@@ -21,6 +21,8 @@ RUN . /opt/venv/bin/activate
 # install dependencies
 RUN pip install --upgrade pip wheel
 RUN pip install -r requirements.txt
+
+ENV PYTHONPATH /etsin_finder
 
 # Bundle app source
 COPY . .
