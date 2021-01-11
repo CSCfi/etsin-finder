@@ -19,3 +19,4 @@ etsin_finder/frontend/build/
 *.vscode
 .env
 app_config
+etsin_finder.log
