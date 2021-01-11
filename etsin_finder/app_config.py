@@ -8,6 +8,7 @@
 """Get configurations for the app and external services."""
 
 import yaml
+import os.path
 from flask import has_app_context, current_app
 
 from etsin_finder.utils import executing_travis
@@ -19,7 +20,16 @@ def _get_app_config_from_file():
         object: Python object containing the app configs
 
     """
-    with open('/home/etsin-user/app_config') as app_config_file:
+
+    # Containerized config
+    if (os.path.isfile('./app_config')):
+        app_config_path = './app_config'
+
+    # Non-containerized config
+    else:
+        app_config_path = 'home/etsin-user/app_config'
+
+    with open(app_config_path) as app_config_file:
         return yaml.load(app_config_file, Loader=yaml.FullLoader)
 
 
