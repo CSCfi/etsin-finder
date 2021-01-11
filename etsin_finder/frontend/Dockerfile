@@ -5,16 +5,17 @@ FROM node:12.2.0-alpine
 WORKDIR /etsin_finder/frontend/
 
 # add `/usr/src/app/node_modules/.bin` to $PATH
-# ENV PATH /usr/src/app/node_modules/.bin:$PATH
+ENV PATH /usr/src/app/node_modules/.bin:$PATH
 
 # install and cache app dependencies
-ADD package.json /etsin_finder/frontend/package.json
+# ADD package.json /etsin_finder/frontend/package.json
+COPY package.json package.json
 RUN npm install
 
 # Bundle app source
 COPY . .
 
-EXPOSE 3001
+EXPOSE 8080
 
 # start app
-CMD ["npm", "start"]
+CMD ["npm", "run", "watch"]
