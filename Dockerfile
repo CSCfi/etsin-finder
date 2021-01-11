@@ -30,3 +30,4 @@ COPY . .
 ENTRYPOINT [ "python" ]
 
 CMD [ "etsin_finder/app.py" ]
+CMD [ "etsin_finder/finder.py" ]
