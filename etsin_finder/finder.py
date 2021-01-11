@@ -7,10 +7,17 @@
 
 """Main finder initialization file"""
 
+from flask_restful import Api
+import os.path
+from etsin_finder.app import app
+from etsin_finder.flags import flag_enabled
 
 from etsin_finder.app import create_app
 
 app = create_app()
 
 if __name__ == "__main__":
-    app.run()
+    if (os.path.isfile('./app_config')):
+        app.run(host='0.0.0.0')
+    else:
+        app.run()
