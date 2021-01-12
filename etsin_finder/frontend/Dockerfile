@@ -17,5 +17,7 @@ COPY . .
 
 EXPOSE 8080
 
+# ENTRYPOINT 
+
 # start app
-CMD ["npm", "run", "watch"]
+CMD ["npm", "start", "--host=0.0.0.0", "--port=8080"]
