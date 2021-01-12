@@ -14,10 +14,10 @@
     "build-storybook": "build-storybook",
     "dev-build": "webpack -d --config webpack.config.js --define process.env.NODE_ENV=\"'development'\"",
     "lint": "eslint js --ext .jsx,.js",
-    "start": "webpack --progress -d --config webpack.config.js --watch --define process.env.NODE_ENV=\"'development'\" --host 0.0.0.0",
+    "start": "webpack-dev-server --inline --progress -d --config webpack.development.js --watch --define process.env.NODE_ENV=\"'development'\" --host 0.0.0.0 --port 8080",
     "storybook": "start-storybook -p 6006",
     "test": "jest",
-    "watch": "npm update; webpack --progress -d --config webpack.config.js --watch  --define process.env.NODE_ENV=\"'development'\" --host 0.0.0.0"
+    "watch": "npm update; webpack --progress -d --config webpack.config.js --watch  --define process.env.NODE_ENV=\"'development'\""
   },
   "dependencies": {
     "@babel/core": "^7.5.5",
@@ -101,7 +101,8 @@
     "jest": "^24.8.0",
     "jest-axe": "^4.1.0",
     "jest-cli": "^24.8.0",
-    "react-element-to-jsx-string": "^14.0.2"
+    "react-element-to-jsx-string": "^14.0.2",
+    "webpack-dev-server": "^3.11.1"
   },
   "jest": {
     "snapshotSerializers": [
