@@ -22,7 +22,4 @@ ENV PYTHONPATH /etsin_finder
 # Bundle app source
 COPY . .
 
-ENTRYPOINT [ "python" ]
-
-CMD [ "etsin_finder/app.py"]
-CMD [ "etsin_finder/finder.py"]
+ENTRYPOINT [ "python", "etsin_finder/finder.py"]
