@@ -1,6 +1,6 @@
 version: '3'
 services:
-    front:
+    webpack:
       image: etsin-qvain-webpack
       build:
         context: ./
@@ -10,7 +10,7 @@ services:
         - ./client:/app
       ports:
         - "8080:8080"
-    web:
+    flask:
       image: etsin-qvain-flask
       command: python finder.py
       build:
