@@ -2,7 +2,6 @@ var path = require('path');
 const { insertBeforeStyled } = require('./helpers')
 const DotenvPlugin = require('dotenv-webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
-const CleanWebpackPlugin = require('clean-webpack-plugin')
 
 module.exports = {
     mode: 'development',
@@ -48,7 +47,6 @@ module.exports = {
         port: 8080
     },
     plugins: [
-      new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         chunksSortMode: 'none',
         filename: 'index.html',
