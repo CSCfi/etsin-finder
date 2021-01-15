@@ -19,7 +19,6 @@ def _get_app_config_from_file():
         object: Python object containing the app configs
 
     """
-
     # Containerized config
     if (os.path.isfile('./app_config')):
         app_config_path = './app_config'
