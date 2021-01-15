@@ -39,11 +39,11 @@ module.exports = {
           },
         ],
     },
+    // Required
     devServer: {
-        publicPath: "/",
-        writeToDisk: true,
-        contentBase: path.join(__dirname, '/'),
-        compress: true,
+        publicPath: "/", // Required
+        writeToDisk: true, // Required
+        compress: true, // Not required, but provides faster load times
         port: 8080
     },
     plugins: [
