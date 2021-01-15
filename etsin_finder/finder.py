@@ -7,7 +7,7 @@
 
 """Main finder initialization file"""
 
-
+import os.path
 from etsin_finder.app import create_app
 
 app = create_app()

@@ -8,6 +8,7 @@
 """Get configurations for the app and external services."""
 
 import yaml
+import os.path
 
 from etsin_finder.utils.utils import executing_travis, ensure_app
 
