@@ -1,6 +1,5 @@
 var path = require('path');
 const { insertBeforeStyled } = require('./helpers')
-const DotenvPlugin = require('dotenv-webpack')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
 module.exports = {
@@ -44,15 +43,15 @@ module.exports = {
         publicPath: "/", // Required
         writeToDisk: true, // Required
         compress: true, // Not required, but provides faster load times
-        port: 8080
+        port: 8080 // Required, this 8080 port is also made available in the file ./Dockerfile
     },
     plugins: [
+      // Required
       new HtmlWebpackPlugin({
         chunksSortMode: 'none',
         filename: 'index.html',
         template: 'static/index.template.ejs',
         favicon: 'static/images/favicon.png'
-      }),
-      new DotenvPlugin(),
+      })
     ],
 };
