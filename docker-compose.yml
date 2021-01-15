@@ -1,0 +1,23 @@
+version: '3'
+services:
+    front:
+      image: etsin-qvain-webpack
+      build:
+        context: ./
+        dockerfile: etsin_finder/frontend/webpack.dockerfile
+      command: npm start
+      volumes:
+        - ./client:/app
+      ports:
+        - "8080:8080"
+    web:
+      image: etsin-qvain-flask
+      command: python finder.py
+      build:
+        context: ./
+        dockerfile: flask.dockerfile
+      ports:
+        - "5000:5000"
+      volumes:
+        - ./:/app
+  
