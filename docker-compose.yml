@@ -3,7 +3,7 @@ services:
     webpack:
       image: etsin-qvain-webpack
       build:
-        context: ./
+        context: ./etsin_finder/frontend
         dockerfile: etsin_finder/frontend/webpack.dockerfile
       command: npm start
       volumes:
