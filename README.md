@@ -5,13 +5,8 @@ This repository, etsin-finder, contains code for the Fairdata platforms Etsin an
 1 Install Docker
 2 Clone this repository
 3 Navigate to root
-4 Build and run Flask:
-    - docker build . -t etsin-qvain-flask  
-    - docker run -p 5000:5000 -d etsin-qvain-flask
-5 Build and run npm:
-    - docker build etsin_finder/frontend -t etsin-qvain-webpack 
-    - docker run -p 8080:8080 -d etsin-qvain-webpack
-6 Run in container
+4 Run `docker-compose build`
+5 Run `docker-compose up`
 
 # Build status
 

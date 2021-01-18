@@ -1,30 +1,31 @@
 version: '3'
 services:
-    webpack:
+    frontend:
       container_name: "webpack"
       image: etsin-qvain-webpack
       build:
         context: ./etsin_finder/frontend
         dockerfile: etsin_finder/frontend/webpack.dockerfile
       command: npm start
-      volumes:
-        - ./client:/app
       ports:
         - "8080:8080"
       environment:
-        - base_url=localhost:8080
-    flask:
+        - base_url=0.0.0.0:8080
+      depends_on: 
+        - backend
+    backend:
       container_name: "flask"
       image: etsin-qvain-flask
-      command: python finder.py
+      command: python etsin_finder/finder.py
       build:
         context: ./
         dockerfile: flask.dockerfile
       ports:
         - "5000:5000"
+      expose:
+        - "5000"
       environment:
-        - base_url=localhost:5000
+        - base_url=0.0.0.0:5000
+        - FLASK_ENV=development
       external_links:
         - webpack:localhost
-      volumes:
-        - ./:/app
