@@ -23,6 +23,9 @@ WORKDIR /
 # Bundle app source
 COPY . ./
 
+# Make port available
+EXPOSE 5000
+
 # Ensure the .sh script can be run
 RUN ["chmod", "+x", "start_gunicorn.sh"]
 
