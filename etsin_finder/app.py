@@ -228,4 +228,6 @@ def create_app(testing=None):
 
     add_restful_resources(app)
     add_views(app)
+    app.logger.info('Views added...')
+
     return app
