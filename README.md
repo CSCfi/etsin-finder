@@ -2,11 +2,12 @@ This repository, etsin-finder, contains code for the Fairdata platforms Etsin an
 
 # Docker setup
 
-1 Install Docker
-2 Clone this repository
-3 Navigate to root
-4 Run `docker-compose build`
-5 Run `docker-compose up`
+1 Install docker
+2 Install docker-compose
+3 Clone this repository
+4 Navigate to root
+5 Run `docker-compose build`
+6 Run `docker-compose up`
 
 # Build status
 
