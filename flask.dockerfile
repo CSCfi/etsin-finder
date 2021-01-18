@@ -17,9 +17,14 @@ ENV <ENV_VARIABLE_2> $ENV_VARIABLE_2
 RUN pip install --upgrade pip wheel
 RUN pip install -r requirements.txt
 
-ENV PYTHONPATH /etsin_finder
+# Set work directory
+WORKDIR /
 
 # Bundle app source
-COPY . .
+COPY . ./
 
-ENTRYPOINT [ "python", "etsin_finder/finder.py"]
+# Ensure the .sh script can be run
+RUN ["chmod", "+x", "start_gunicorn.sh"]
+
+# Run gunicorn
+ENTRYPOINT ["./start_gunicorn.sh"]
