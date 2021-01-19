@@ -13,8 +13,9 @@ def get_etsin_saml_config_from_file():
     """Get Etsin saml config.
 
     Returns:
-        saml_config
+        None
 
     """
-    with open('/home/etsin-user/etsin/settings.json') as saml_json_file:
-        return json.load(saml_json_file)
+    return None
+    # with open('/home/etsin-user/etsin/settings.json') as saml_json_file:
+    #    return json.load(saml_json_file)

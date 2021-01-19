@@ -8,12 +8,19 @@
 """Main finder initialization file"""
 
 import os.path
+import logging
+import logging.config
 from etsin_finder.app import create_app
 
 app = create_app()
 
-if __name__ == "__main__":
-    if (os.path.isfile('./app_config')):
-        app.run(host='0.0.0.0')
-    else:
-        app.run()
+app.logger.error('testing...')
+
+# if __name__ == "__main__":
+app.logger.error('does it work...')
+if (os.path.isfile('./app_config')):
+    app.logger.error('lets see')
+    app.run(host='0.0.0.0')
+else:
+    app.logger.error('or... see')
+    app.run()
