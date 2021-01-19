@@ -16,7 +16,8 @@ services:
     backend:
       container_name: "flask"
       image: etsin-qvain-flask
-      command: python etsin_finder/finder.py
+      # command: gunicorn --bind unix:/socket --config ./gunicorn_conf.py --reload etsin_finder.finder:app -b 0.0.0.0:5000 
+      command: gunicorn --bind '0.0.0.0:5000' etsin_finder.finder:app --preload
       build:
         context: ./
         dockerfile: flask.dockerfile
@@ -27,5 +28,5 @@ services:
       environment:
         - base_url=0.0.0.0:5000
         - FLASK_ENV=development
-      external_links:
-        - webpack:localhost
+        - PYTHONPATH=/
+        - FLASK_DEBUG=1
