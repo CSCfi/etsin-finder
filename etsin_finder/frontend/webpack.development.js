@@ -42,11 +42,13 @@ module.exports = {
         proxy: { // Proxy for requests to the Flask backend
 
            // List of endpoint calls that should be routed from Webpack to Flask
-           context: [ // This excludes the root path
-             "/*", // All paths directly below root
+           context: [
+             "/*", // <- This line includes all paths directly below root but excludes the root path itself
              "/qvain/**",
              "/login/**",
-             "/datasets/**"
+             "/datasets/**",
+             "/api/**",
+             "/es/**"
             ],
             target: {
               host: "flask", // Name of the backend container

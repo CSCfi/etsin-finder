@@ -2,6 +2,8 @@ version: '3'
 services:
     frontend:
       container_name: "webpack"
+      domainname: etsin-local.fd-test.csc.fi
+      hostname: www
       image: etsin-qvain-webpack
       build:
         context: ./etsin_finder/frontend
