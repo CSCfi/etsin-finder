@@ -31,8 +31,8 @@ def webpack_dev_proxy(host, path):
         if name.lower() not in excluded_headers
     }
     # if dev server responds with html, return the rendered index template instead
-    # if headers.get('Content-Type') == 'text/html; charset=UTF-8':
-        # return _render_index_template()
+    if headers.get('Content-Type') == 'text/html; charset=UTF-8':
+        return _render_index_template()
     return (response.content, response.status_code, headers)
 
 @index_views.route('/', defaults={'path': ''})
