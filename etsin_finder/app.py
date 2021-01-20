@@ -228,5 +228,4 @@ def create_app(testing=None):
 
     add_restful_resources(app)
     add_views(app)
-
     return app
