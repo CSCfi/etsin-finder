@@ -35,6 +35,13 @@ services:
         - FLASK_ENV=development
         - PYTHONPATH=/
         - FLASK_DEBUG=1
+    nginx: 
+      image: etsin-qvain-nginx 
+      ports: 
+          - “80:80” 
+          - “443:443”
+      volumes: 
+          - /certs:/etc/nginx/certs
 volumes:
     webpack_build_folder:
-      driver: local 
+      driver: local
