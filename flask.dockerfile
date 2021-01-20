@@ -28,13 +28,5 @@ EXPOSE 5000
 
 ENV PYTHONPATH "/"
 
-# Ensure the .sh script can be run
-# RUN ["chmod", "+x", "start_gunicorn.sh"]
-
-# Run gunicorn
-# ENTRYPOINT ["./start_gunicorn.sh"]
-#!/bin/sh
-
 # Gunicorn
-# gunicorn --bind unix:/socket --access-logfile - --error-logfile - --config ./gunicorn_conf.py --reload etsin_finder.finder:app -b 0.0.0.0:5000 
 CMD ["gunicorn", "-b", "0.0.0.0:5000", "etsin_finder.finder:app", "--preload"]
