@@ -39,8 +39,9 @@ module.exports = {
         ],
     },
     devServer: { // Required
-        /* proxy: { // Proxy for requests to the Flask backend
-          '/api': { // Required, context
+        proxy: { // Proxy for requests to the Flask backend
+          // context: ['**'],
+          "/login/*": { // Required, context
             target: {
               host: "flask", // Name of the backend container
               protocol: 'http:',
@@ -50,18 +51,7 @@ module.exports = {
             changeOrigin: true,
             secure: false,
           }
-        }, */
-        proxy: [{
-          context: ['/login/*'],
-          target: {
-            host: "flask", // Name of the backend container
-            protocol: 'http:',
-            port: 5000, // Flask port, required
-          },
-          ignorePath: true,
-          changeOrigin: true,
-          secure: false,
-        }],
+        },
         publicPath: "/", // Required
         writeToDisk: true, // Required
         compress: true, // Not required, but provides faster load times

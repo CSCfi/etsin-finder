@@ -7,6 +7,9 @@ WORKDIR /etsin_finder/frontend/
 # Install npm packages based on package.json
 RUN npm install
 
+# Add a /build volume
+VOLUME ["/build"]
+
 # Bundle app source
 COPY . .
 
@@ -14,4 +17,4 @@ COPY . .
 EXPOSE 8080
 
 # Start development-configured app (see the command scripts.start inside the file ./package.json for details)
-CMD ["npm", "run dev-build"]
+CMD ["npm", "start"]

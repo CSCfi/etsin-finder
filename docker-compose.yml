@@ -2,15 +2,15 @@ version: '3'
 services:
     frontend:
       container_name: "webpack"
-      image: etsin-qvain-webpack-build
+      image: etsin-qvain-webpack
       build:
         context: ./etsin_finder/frontend
         dockerfile: etsin_finder/frontend/webpack.dockerfile
-      command: npm run dev-build
+      command: npm start
       ports:
         - "8080:8080"
       volumes:
-          - templates:/build
+          - webpack_build_folder:/build
       environment:
         - base_url=0.0.0.0:8080
       depends_on: 
@@ -27,11 +27,12 @@ services:
       expose:
         - "5000"
       volumes:
-          - templates:/build
+          - webpack_build_folder:/etsin_finder/frontend/build
       environment:
         - base_url=0.0.0.0:5000
         - FLASK_ENV=development
         - PYTHONPATH=/
         - FLASK_DEBUG=1
 volumes:
-     templates: 
+    webpack_build_folder:
+      external: false
