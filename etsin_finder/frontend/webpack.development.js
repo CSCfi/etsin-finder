@@ -40,11 +40,18 @@ module.exports = {
     },
     devServer: { // Required
         proxy: { // Proxy for requests to the Flask backend
-          context: ["/login/*", '/datasets/*'], // Required, context
+
+           // List of endpoint calls that should be routed from Webpack to Flask
+           context: [ // This excludes the root path
+             "/*", // All paths directly below root
+             "/qvain/**",
+             "/login/**",
+             "/datasets/**"
+            ],
             target: {
               host: "flask", // Name of the backend container
-              protocol: 'http:',
-              port: 5000, // Flask port, required
+              protocol: 'http:', // Protocol to be used
+              port: 5000, // Flask target port for endpoint calls, required
             },
             ignorePath: false,
             changeOrigin: true,
