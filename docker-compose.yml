@@ -10,7 +10,7 @@ services:
       ports:
         - "8080:8080"
       volumes:
-          - webpack_build_folder:/build
+          - webpack_build_folder:/etsin_finder/frontend/build
       environment:
         - base_url=0.0.0.0:8080
       depends_on: 
@@ -35,4 +35,4 @@ services:
         - FLASK_DEBUG=1
 volumes:
     webpack_build_folder:
-      external: false
+      driver: local 
