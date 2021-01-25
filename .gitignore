@@ -27,4 +27,6 @@ package-lock.json
 # Docker-related
 app_config
 etsin_finder.log
-certs/
+
+# Nginx
+nginx/certs/
