@@ -15,6 +15,7 @@ This repository, etsin-finder, contains code for the Fairdata platforms Etsin an
 # Separate commands for building the images
 - `docker build -f etsin_finder/frontend/webpack.dockerfile -t etsin-qvain-webpack etsin_finder/frontend`
 - `docker build -f flask.dockerfile -t etsin-qvain-flask ./`
+- `docker build -f nginx/nginx.dockerfile -t etsin-qvain-nginx nginx/`
 
 # Build status
 
