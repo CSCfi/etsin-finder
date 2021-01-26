@@ -1,6 +1,12 @@
 # pull official base image
 FROM python:3.6
 
+# Gunicorn-related
+COPY gunicorn_conf.py /etc/gunicorn.py
+
+# Create gunicorn/socket folder
+RUN mkdir -p /usr/local/etsin/gunicorn/socket
+
 # set work directory
 WORKDIR /etsin_finder
 
@@ -29,4 +35,5 @@ EXPOSE 5000
 ENV PYTHONPATH "/"
 
 # Gunicorn
-CMD ["gunicorn", "-b", "0.0.0.0:5000", "etsin_finder.finder:app", "--preload"]
+# Adapted from gunicorn --bind unix:{{ nginx_gunicorn_socket_path }} --config /etc/gunicorn.py etsin_finder.finder:app
+CMD ["gunicorn", "-b", "0.0.0.0:5000", "--bind", "unix:/usr/local/etsin/gunicorn/socket", "--config", "/etc/gunicorn.py", "etsin_finder.finder:app", "--preload"]
