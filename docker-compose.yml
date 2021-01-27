@@ -11,16 +11,18 @@ services:
       command: npm start
       ports:
         - "8080:8080"
+      expose:
+        - "8080"
       volumes:
-          - webpack_build_folder:/etsin_finder/frontend/build
+        - webpack_build_folder:/etsin_finder/frontend/build
+        - static_folder:/etsin_finder/frontend/static
+        - certificates_folder:/etc/nginx/ssl_certs/
       environment:
         - base_url=0.0.0.0:8080
-      depends_on: 
-        - backend
     backend:
       container_name: "flask"
       image: etsin-qvain-flask
-      command: gunicorn --bind '0.0.0.0:5000' etsin_finder.finder:app --preload
+      command: gunicorn -b '0.0.0.0:5000' --bind unix:/usr/local/etsin/gunicorn/socket --config /etc/gunicorn.py etsin_finder.finder:app --preload
       build:
         context: ./
         dockerfile: flask.dockerfile
@@ -29,12 +31,16 @@ services:
       expose:
         - "5000"
       volumes:
-          - webpack_build_folder:/etsin_finder/frontend/build
+        - webpack_build_folder:/etsin_finder/frontend/build
+        - static_folder:/etsin_finder/frontend/static
+        - certificates_folder:/etc/nginx/ssl_certs/
       environment:
         - base_url=0.0.0.0:5000
         - FLASK_ENV=development
         - PYTHONPATH=/
         - FLASK_DEBUG=1
+      #depends_on:
+      #  - nginx
     nginx:
       container_name: "nginx"
       image: etsin-qvain-nginx 
@@ -46,8 +52,17 @@ services:
       - "443:443"
       volumes:
         - webpack_build_folder:/etsin_finder/frontend/build
+        - static_folder:/etsin_finder/frontend/static
+        - certificates_folder:/etc/nginx/ssl_certs/
       depends_on:
+      # Required, in order to do requests from nginx config files to backend:5000
       - backend
+      # Required, in order to do requests from nginx config files to frontend:8080
+      - frontend
 volumes:
     webpack_build_folder:
+      driver: local
+    static_folder:
+      driver: local
+    certificates_folder:
       driver: local
