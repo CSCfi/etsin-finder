@@ -1,4 +1,5 @@
 var path = require('path');
+var fs = require('fs');
 const { insertBeforeStyled } = require('./helpers')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 
@@ -60,6 +61,11 @@ module.exports = {
             secure: false,
           // }
         },
+        https: true,
+        key: fs.readFileSync('/etc/nginx/ssl_certs/fd-test.csc.fi.key.pem'),
+        cert: fs.readFileSync('/etc/nginx/ssl_certs/fd-test.csc.fi.crt.pem'),
+        // ca: fs.readFileSync('/etc/nginx/ssl_certs/fd-test.csc.fi.crt.pem'),
+        disableHostCheck: true,
         publicPath: "/", // Required
         writeToDisk: true, // Required
         compress: true, // Not required, but provides faster load times
