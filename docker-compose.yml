@@ -24,7 +24,6 @@ services:
     backend:
       container_name: "flask"
       image: etsin-qvain-flask
-      command: gunicorn -b '0.0.0.0:5000' --bind unix:/usr/local/etsin/gunicorn/socket --config /etc/gunicorn.py etsin_finder.finder:app --preload
       build:
         context: ./
         dockerfile: flask.dockerfile
@@ -43,7 +42,7 @@ services:
         - FLASK_DEBUG=1
     nginx:
       container_name: "nginx"
-      image: etsin-qvain-nginx 
+      image: etsin-qvain-nginx
       build:
         context: ./nginx/
         dockerfile: nginx/nginx.dockerfile
