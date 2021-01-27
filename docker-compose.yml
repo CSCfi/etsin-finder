@@ -2,8 +2,8 @@ version: '3'
 services:
     frontend:
       container_name: "webpack"
-      domainname: etsin-local.fd-test.csc.fi
-      hostname: www
+      # domainname: etsin-local.fd-test.csc.fi
+      # hostname: www
       image: etsin-qvain-webpack
       build:
         context: ./etsin_finder/frontend
@@ -14,9 +14,11 @@ services:
       expose:
         - "8080"
       volumes:
-        - webpack_build_folder:/etsin_finder/frontend/build
-        - static_folder:/etsin_finder/frontend/static
+        - webpack_build_folder:/etsin_finder/frontend/build/
+        - static_folder:/etsin_finder/frontend/static/
         - certificates_folder:/etc/nginx/ssl_certs/
+      depends_on:
+        - backend
       environment:
         - base_url=0.0.0.0:8080
     backend:
@@ -31,16 +33,14 @@ services:
       expose:
         - "5000"
       volumes:
-        - webpack_build_folder:/etsin_finder/frontend/build
-        - static_folder:/etsin_finder/frontend/static
+        - webpack_build_folder:/etsin_finder/frontend/build/
+        - static_folder:/etsin_finder/frontend/static/
         - certificates_folder:/etc/nginx/ssl_certs/
       environment:
         - base_url=0.0.0.0:5000
         - FLASK_ENV=development
         - PYTHONPATH=/
         - FLASK_DEBUG=1
-      #depends_on:
-      #  - nginx
     nginx:
       container_name: "nginx"
       image: etsin-qvain-nginx 
@@ -48,11 +48,14 @@ services:
         context: ./nginx/
         dockerfile: nginx/nginx.dockerfile
       ports:
-      - "80:80"
-      - "443:443"
+        - "80:80"
+        - "443:443"
+      expose:
+        - "80"
+        - "443"
       volumes:
-        - webpack_build_folder:/etsin_finder/frontend/build
-        - static_folder:/etsin_finder/frontend/static
+        - webpack_build_folder:/etsin_finder/frontend/build/
+        - static_folder:/etsin_finder/frontend/static/
         - certificates_folder:/etc/nginx/ssl_certs/
       depends_on:
       # Required, in order to do requests from nginx config files to backend:5000
