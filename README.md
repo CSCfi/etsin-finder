@@ -9,8 +9,10 @@ This repository, etsin-finder, contains code for the Fairdata platforms Etsin an
     - `0.0.0.0        qvain.local.fd-test.csc.fi`
 4 Clone this repository
 5 Navigate to root
-6 Run `docker-compose build`
-7 Run `docker-compose up`
+6 Retrieve the local app_config file and place it in the root of this repository
+7 Retrieve the required certificates (crt/key) and place them in the folder nginx/certs
+8 Run `docker-compose build`
+9 Run `docker-compose up`
 
 # Separate commands for building the images
 - `docker build -f etsin_finder/frontend/webpack.dockerfile -t etsin-qvain-webpack etsin_finder/frontend`
