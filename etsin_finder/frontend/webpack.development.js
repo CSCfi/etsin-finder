@@ -61,13 +61,16 @@ module.exports = {
             secure: false,
           // }
         },
+        // If https is enabled without key/cert/ca items, it will generate its own certificate
         https: true,
         key: fs.readFileSync('/etc/nginx/ssl_certs/fd-test.csc.fi.key.pem'),
         cert: fs.readFileSync('/etc/nginx/ssl_certs/fd-test.csc.fi.crt.pem'),
         // ca: fs.readFileSync('/etc/nginx/ssl_certs/fd-test.csc.fi.crt.pem'),
-        disableHostCheck: true,
+        disableHostCheck: true, // Enabled in order to allow for websocket connection
         publicPath: "/", // Required
         writeToDisk: true, // Required
+        contentBase: "/build",
+        hot: true,
         compress: true, // Not required, but provides faster load times
         port: 8080 // Required, this 8080 port is also made available in the file ./Dockerfile
     },
