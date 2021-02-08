@@ -12,6 +12,7 @@ This repository, etsin-finder, contains code for the Fairdata platforms Etsin an
 6 Retrieve the local app_config file and place it in the root of this repository
 7 Retrieve the required certificates (crt/key) and place them in the folder nginx/certs
 8 Build the two (2) Docker images (flask, nginx):
+- `docker build -f etsin_finder/frontend/webpack.dockerfile -t etsin-qvain-webpack etsin_finder/frontend`
 - `docker build -f flask.dockerfile -t etsin-qvain-flask ./`
 - `docker build -f nginx/nginx.dockerfile -t etsin-qvain-nginx nginx/`
 9 Run `docker-compose up`
