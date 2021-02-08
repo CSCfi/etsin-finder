@@ -12,7 +12,7 @@
   "scripts": {
     "build": "webpack --mode production --config webpack.prod.js --define process.env.NODE_ENV=\"'production'\"",
     "build-storybook": "build-storybook",
-    "dev-build": "webpack-dev-server --inline --progress -d --config webpack.config.js --watch --define process.env.NODE_ENV=\"'development'\" --host 0.0.0.0",
+    "dev-build": "webpack -d --config webpack.config.js --define process.env.NODE_ENV=\"'development'\"",
     "lint": "eslint js --ext .jsx,.js",
     "start": "webpack --progress -d --config webpack.config.js --watch --define process.env.NODE_ENV=\"'development'\" --host 0.0.0.0",
     "storybook": "start-storybook -p 6006",
