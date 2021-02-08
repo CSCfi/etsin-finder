@@ -7,8 +7,8 @@ WORKDIR /etsin_finder/frontend/
 # Bundle app source
 COPY . .
 
-# Install npm packages based on package.json
-RUN npm install
+# Install npm packages based on package.json (with global option)
+RUN npm install -g
 
 # Add a /build volume
 VOLUME ["/build"]
