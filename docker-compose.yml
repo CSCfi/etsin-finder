@@ -13,8 +13,8 @@ services:
         - "8080"
       volumes:
         - type: bind
-          source: ./etsin_finder/frontend/build/
-          target: /etsin_finder/frontend/build/
+          source: ./etsin_finder/frontend/
+          target: /etsin_finder/frontend/
         - type: volume
           source: static_folder
           target: /etsin_finder/frontend/static/
