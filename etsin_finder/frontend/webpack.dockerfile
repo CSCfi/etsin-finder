@@ -4,14 +4,14 @@ FROM node:12.2.0-alpine
 # Set working directory
 WORKDIR /etsin_finder/frontend/
 
+# Bundle app source
+COPY . .
+
 # Install npm packages based on package.json
 RUN npm install
 
 # Add a /build volume
 VOLUME ["/build"]
-
-# Bundle app source
-COPY . .
 
 # Make port available
 EXPOSE 8080
