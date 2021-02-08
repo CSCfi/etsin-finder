@@ -15,8 +15,11 @@ This repository, etsin-finder, contains code for the Fairdata platforms Etsin an
 - `docker build -f flask.dockerfile -t etsin-qvain-flask ./`
 - `docker build -f nginx/nginx.dockerfile -t etsin-qvain-nginx nginx/`
 9 Run `docker-compose up`
-10 Run `npm start` to start the frontend, which will run locally, outside Docker
-11 The app etsin-finder should now be available at the DNS addresses specified above in step 3
+10 In another cmd/terminal window, navigate to `etsin_finder/frontend`
+11 Run `npm install` to install the required packages
+12 Run `npm start` to start the frontend, which will run locally, outside Docker
+- This creates a `build` folder which is connected to the Dockerized backend (flask & nginx)
+13 The app etsin-finder should now be available at the DNS addresses specified above in step 3, with hot reload enabled
 
 # Build status
 
