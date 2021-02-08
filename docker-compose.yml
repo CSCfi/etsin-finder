@@ -1,5 +1,31 @@
 version: '3'
 services:
+    frontend:
+      container_name: "webpack"
+      image: etsin-qvain-webpack
+      build:
+        context: ./etsin_finder/frontend
+        dockerfile: etsin_finder/frontend/webpack.dockerfile
+      command: npm start
+      ports:
+        - "8080:8080"
+      expose:
+        - "8080"
+      volumes:
+        - type: bind
+          source: ./etsin_finder/frontend/build/
+          target: /etsin_finder/frontend/build/
+        - type: volume
+          source: static_folder
+          target: /etsin_finder/frontend/static/
+        - type: volume
+          source: certificates_folder
+          target: /etc/nginx/ssl_certs/
+      depends_on:
+        - backend
+      environment:
+        - CHOKIDAR_USEPOLLING=true
+        - base_url=0.0.0.0:8080
     backend:
       container_name: "flask"
       image: etsin-qvain-flask
@@ -50,6 +76,7 @@ services:
       environment:
       - CHOKIDAR_USEPOLLING=true
       depends_on:
+      - frontend
       - backend
 volumes:
     static_folder:
