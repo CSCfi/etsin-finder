@@ -21,9 +21,9 @@
 3. Navigate to root of the cloned repository
     - `cd etsin-finder`
 4. Retrieve the following files (app config and certificates):
-    - `etsin_finder/app_config`
-    - `etsin_finder/nginx/certs/fd-test.csc.fi.crt.pem`
-    - `etsin_finder/nginx/certs/fd-test.csc.fi.key.pem`
+    - `etsin-finder/app_config`
+    - `etsin-finder/nginx/certs/fd-test.csc.fi.crt.pem`
+    - `etsin-finder/nginx/certs/fd-test.csc.fi.key.pem`
 5. Build the three (3) Docker images (webpack, flask, nginx):
     - `docker build -f etsin_finder/frontend/webpack.dockerfile -t etsin-qvain-webpack etsin_finder/frontend`
     - `docker build -f flask.dockerfile -t etsin-qvain-flask ./`
