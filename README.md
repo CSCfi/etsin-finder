@@ -1,13 +1,16 @@
-This repository, etsin-finder, contains code for the Fairdata platforms Etsin and Qvain
+# etsin-finder
 
-# Docker: Prerequisites
+- This repository, etsin-finder, contains code for the Fairdata platforms Etsin and Qvain
+- The development setup makes use of Docker
+
+## 1. Docker: Prerequisites
 
 1. If not installed, install docker on your computer
     - `docker.com/get-started`
 2. If not installed, install docker-compose
     - `docs.docker.com/compose/install`
 
-# Docker: Setup
+## 2. Docker: Setup
 
 1. Edit your local /etc/hosts file to include the following two lines:
     - `0.0.0.0        etsin.local.fd-test.csc.fi`
@@ -30,7 +33,7 @@ This repository, etsin-finder, contains code for the Fairdata platforms Etsin an
     - `docker run --rm -v $PWD:/etsin_finder/frontend -it etsin-qvain-webpack npm start`
     - This will build the `build` folder inside the Docker container, even if npm is not installed on the host machine
     - When the command is done, exit the process (`CTRL + C` or `CMD + C`), the build folder will be left in place
-9. Navigate back to root and run docker-compose up
+9. Finally, run the app:
     - `cd ../.. && docker-compose up`
     - This will start the app etsin-finder, which should then be available at the DNS addresses specified above in step 4, with hot reload enabled, and all dependencies installed inside Docker containers
 
