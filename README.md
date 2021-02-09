@@ -17,10 +17,10 @@ This repository, etsin-finder, contains code for the Fairdata platforms Etsin an
 - `docker build -f nginx/nginx.dockerfile -t etsin-qvain-nginx nginx/`
 9. Navigate to the frontend folder
 - `cd etsin_finder/frontend`
-10. Build the `etsin_finder/frontend/node_modules` folder:
+10. Build the `etsin_finder/frontend/node_modules` folder inside the webpack Docker container:
 - `docker run --rm -v $PWD:/etsin_finder/frontend -it etsin-qvain-webpack npm install`
 - This will build the `node_modules` folder inside the Docker container, even if npm is not installed on the host machine
-11. Build the `/build` folder inside:
+11. Build the `etsin_finder/frontend//build` folder inside the webpack Docker container:
 - `docker run --rm -v $PWD:/etsin_finder/frontend -it etsin-qvain-webpack npm start`
 - This will build the `build` folder inside the Docker container, even if npm is not installed on the host machine
 12. Run `docker-compose up`
