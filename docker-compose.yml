@@ -1,4 +1,4 @@
-version: '3'
+version: '3.3'
 services:
     frontend:
       container_name: "webpack"
@@ -51,6 +51,19 @@ services:
         - FLASK_ENV=development
         - PYTHONPATH=/
         - FLASK_DEBUG=1
+    elasticsearch:
+      container_name: "elasticsearch"
+      image: docker.elastic.co/elasticsearch/elasticsearch:6.5.2
+      environment:
+        - http.host=0.0.0.0
+        - transport.host=0.0.0.0
+        - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
+        - "discovery.type=single-node"
+      volumes:
+        - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
+      ports:
+        - 9200:9200
+        - 9300:9300
     nginx:
       container_name: "nginx"
       image: etsin-qvain-nginx
@@ -78,6 +91,7 @@ services:
       depends_on:
       - frontend
       - backend
+      - elasticsearch
 volumes:
     static_folder:
       driver: local
