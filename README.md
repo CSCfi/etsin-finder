@@ -35,9 +35,18 @@
     - `docker run --rm -v $PWD:/etsin_finder/frontend -it etsin-qvain-webpack npm start`
     - This will build the `build` folder inside the Docker container, even if npm is not installed on the host machine
     - When the command is done, exit the process (`CTRL + C` or `CMD + C`), the build folder will be left in place
-8. Finally, run the app:
-    - `cd ../.. && docker-compose up`
-    - This will start the app etsin-finder, which should then be available at the DNS addresses specified above in step 4, with hot reload enabled, and all dependencies installed inside Docker containers
+8. Create a network so that external calls are available using the Python script in etsin-finder-search
+    - `cd ../..`
+    - `docker swarm init`
+    - `docker network create -d overlay --attachable elastic-network`
+9. Finally, run the app:
+    - `docker stack deploy -c docker-compose.yml etsin-qvain`
+    - This will start the app etsin-finder, which should then be available at the DNS addresses specified above in step 2.1, with hot reload enabled, and all dependencies installed inside Docker containers
+    - The backend (flask) and nginx will start first, followed by the frontend (webpack)
+10. (Additional step): Load test datasets from Metax:
+    - Open new terminal window, go to etsin-finder-search (`git clone` the repository if not done already)
+    - `cd ../etsin-finder-search`
+    - `docker run --network=elastic-network etsin-search-python python load_test_data.py amount_of_datasets=199`
 
 # Build status
 

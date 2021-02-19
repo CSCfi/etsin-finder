@@ -1,16 +1,10 @@
-version: '3.3'
+version: '3.5'
 services:
     frontend:
-      container_name: "webpack"
       image: etsin-qvain-webpack
-      build:
-        context: ./etsin_finder/frontend
-        dockerfile: etsin_finder/frontend/webpack.dockerfile
       command: npm start
       ports:
         - "8080:8080"
-      expose:
-        - "8080"
       volumes:
         - type: bind
           source: ./etsin_finder/frontend/
@@ -26,16 +20,12 @@ services:
       environment:
         - CHOKIDAR_USEPOLLING=true
         - base_url=0.0.0.0:8080
+      networks:
+        - elastic-network
     backend:
-      container_name: "flask"
       image: etsin-qvain-flask
-      build:
-        context: ./
-        dockerfile: flask.dockerfile
       ports:
         - "5000:5000"
-      expose:
-        - "5000"
       volumes:
         - type: bind
           source: ./etsin_finder/frontend/build/
@@ -51,31 +41,28 @@ services:
         - FLASK_ENV=development
         - PYTHONPATH=/
         - FLASK_DEBUG=1
+      networks:
+        - elastic-network
     elasticsearch:
-      container_name: "elasticsearch"
       image: docker.elastic.co/elasticsearch/elasticsearch:6.5.2
+      ports:
+        - 9200:9200
+        - 9300:9300
       environment:
+        - base_url=0.0.0.0:9200
         - http.host=0.0.0.0
         - transport.host=0.0.0.0
         - "ES_JAVA_OPTS=-Xms1g -Xmx1g"
         - "discovery.type=single-node"
       volumes:
         - ./elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml
-      ports:
-        - 9200:9200
-        - 9300:9300
+      networks:
+        - elastic-network
     nginx:
-      container_name: "nginx"
       image: etsin-qvain-nginx
-      build:
-        context: ./nginx/
-        dockerfile: nginx/nginx.dockerfile
       ports:
         - "80:80"
         - "443:443"
-      expose:
-        - "80"
-        - "443"
       volumes:
         - type: bind
           source: ./etsin_finder/frontend/build/
@@ -89,11 +76,18 @@ services:
       environment:
       - CHOKIDAR_USEPOLLING=true
       depends_on:
-      - frontend
-      - backend
-      - elasticsearch
+        - frontend
+        - backend
+        - elasticsearch
+      networks:
+        - elastic-network
 volumes:
     static_folder:
       driver: local
     certificates_folder:
       driver: local
+networks:
+  elastic-network:
+    driver: overlay
+    attachable: true
+    external: true
