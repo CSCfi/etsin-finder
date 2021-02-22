@@ -20,7 +20,7 @@ WORKDIR /
 COPY . ./
 
 # Copy app_config to Docker container
-COPY app_config /home/etsin-user/app_config
+COPY ../app_config /home/etsin-user/app_config
 
 # Make port available
 EXPOSE 5000
