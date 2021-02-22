@@ -7,15 +7,12 @@
 
 """Main finder initialization file"""
 
-import os.path
-import logging
-import logging.config
+import os
 from etsin_finder.app import create_app
 
 app = create_app()
 
-# if __name__ == "__main__":
-if (os.path.isfile('./app_config')):
+if os.environ['FLASK_ENV'] == 'development':
     app.run(host='0.0.0.0')
 else:
     app.run()
