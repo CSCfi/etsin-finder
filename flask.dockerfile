@@ -9,10 +9,6 @@ COPY requirements.txt /etsin_finder/
 RUN apt update
 RUN apt-get install libxml2-dev libxmlsec1-dev libxmlsec1-openssl -y
 
-# set environment variables
-ENV <ENV_VARIABLE_1> $ENV_VARIABLE_1
-ENV <ENV_VARIABLE_2> $ENV_VARIABLE_2
-
 # install dependencies
 RUN pip install --upgrade pip wheel
 RUN pip install -r requirements.txt
@@ -22,6 +18,9 @@ WORKDIR /
 
 # Bundle app source
 COPY . ./
+
+# Copy app_config to Docker container
+COPY app_config /home/etsin-user/app_config
 
 # Make port available
 EXPOSE 5000
