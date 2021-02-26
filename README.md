@@ -17,25 +17,19 @@
     - Build the configs in root of that repository:
     
     Certificates:
-    `docker config create etsin-qvain-ssl-certificate tls/config/fd-test.csc.fi.crt.pem`
-    `docker config create etsin-qvain-ssl-certificate-key tls/config/fd-test.csc.fi.key.pem`
+    `docker config create fairdata-ssl-certificate tls/config/fd-dev.csc.fi.crt.pem`
+    `docker config create fairdata-ssl-certificate-key tls/config/fd-dev.csc.fi.key.pem`
     `docker config create etsin-qvain-nginx-dhparam etsin/config/nginx/nginx_dhparam.pem`
 
     App_config:
     `docker config create etsin-qvain-app-config etsin/config/app_config`
 
     Nginx configurations:
-    `docker config create etsin-qvain-nginx-config etsin/config/nginx/nginx.conf`
-    `docker config create etsin-qvain-nginx-server-common etsin/config/nginx/server_common.conf`
-    `docker config create etsin-qvain-nginx-shared-headers etsin/config/nginx/shared_headers.conf`
-    `docker config create etsin-qvain-nginx-shared-ssl-configurations etsin/config/nginx/shared_ssl_configurations.conf`
-    `docker config create etsin-qvain-nginx-api-response-headers etsin/config/nginx/api_response_headers.conf`
-    `docker config create etsin-qvain-nginx-static-file-headers etsin/config/nginx/api_response_headers.conf`
-    `docker config create etsin-qvain-nginx-elastic-headers etsin/config/nginx/elastic_headers.conf`
+    `docker config create etsin-qvain-nginx-config etsin/config/nginx/etsin-nginx.conf.dev`
 
 2. Edit your local /etc/hosts file to include the following two lines:
-    - `0.0.0.0        etsin.local.fd-test.csc.fi`
-    - `0.0.0.0        qvain.local.fd-test.csc.fi`
+    - `0.0.0.0        etsin.fd-dev.csc.fi`
+    - `0.0.0.0        qvain.fd-dev.csc.fi`
 3. Pull the two (2) custom Docker images from Artifactory (webpack, flask):
     - `docker pull fairdata-docker.artifactory.ci.csc.fi/fairdata-etsin-qvain-webpack`
     - `docker pull fairdata-docker.artifactory.ci.csc.fi/fairdata-etsin-qvain-flask` 
