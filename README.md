@@ -12,32 +12,49 @@
 
 ## 2. Development setup
 
-0. First, complete the Etsin-Qvain-related steps here: `https://github.com/CSCfi/fairdata-docker/blob/master/README.md`
+1. First, Retrieve the etsin-qvain development secrets 
+    - Gain access to relevant secret repository
+    - Build the configs in root of that repository:
+    
+    Certificates:
+    `docker config create etsin-qvain-ssl-certificate tls/config/fd-test.csc.fi.crt.pem`
+    `docker config create etsin-qvain-ssl-certificate-key tls/config/fd-test.csc.fi.key.pem`
+    `docker config create etsin-qvain-nginx-dhparam etsin/config/nginx/nginx_dhparam.pem`
 
-1. Edit your local /etc/hosts file to include the following two lines:
+    App_config:
+    `docker config create etsin-qvain-app-config etsin/config/app_config`
+
+    Nginx configurations:
+    `docker config create etsin-qvain-nginx-config etsin/config/nginx/nginx.conf`
+    `docker config create etsin-qvain-nginx-server-common etsin/config/nginx/server_common.conf`
+    `docker config create etsin-qvain-nginx-shared-headers etsin/config/nginx/shared_headers.conf`
+    `docker config create etsin-qvain-nginx-shared-ssl-configurations etsin/config/nginx/shared_ssl_configurations.conf`
+    `docker config create etsin-qvain-nginx-api-response-headers etsin/config/nginx/api_response_headers.conf`
+    `docker config create etsin-qvain-nginx-static-file-headers etsin/config/nginx/api_response_headers.conf`
+    `docker config create etsin-qvain-nginx-elastic-headers etsin/config/nginx/elastic_headers.conf`
+
+2. Edit your local /etc/hosts file to include the following two lines:
     - `0.0.0.0        etsin.local.fd-test.csc.fi`
     - `0.0.0.0        qvain.local.fd-test.csc.fi`
-
-2. Build the three (3) Docker images (webpack, flask, nginx):
-    - `docker build -f etsin_finder/frontend/webpack.dockerfile -t etsin-qvain-webpack etsin_finder/frontend`
-    - `docker build -f flask.dockerfile -t etsin-qvain-flask ./`
-    - `docker build -f nginx/nginx.dockerfile -t etsin-qvain-nginx nginx/`
-3. Run:
+3. Pull the two (2) custom Docker images from Artifactory (webpack, flask):
+    - `docker pull fairdata-docker.artifactory.ci.csc.fi/fairdata-etsin-qvain-webpack`
+    - `docker pull fairdata-docker.artifactory.ci.csc.fi/fairdata-etsin-qvain-flask` 
+4. To setup the frontend, run:
     - `cd etsin_finder/frontend && docker run --rm -v $PWD:/etsin_finder/frontend -it etsin-qvain-webpack npm install`
     - This will navigate you to the frontend folder and build the `node_modules` folder inside the Docker container, even if npm is not installed on the host machine. This may take a few minutes.
-4. When the above command is done, run:
+5. Then, when the above command is done, run:
     - `docker run --rm -v $PWD:/etsin_finder/frontend -it etsin-qvain-webpack npm start`
     - This will build the `build` folder inside the Docker container, even if npm is not installed on the host machine
     - When the command is done, exit the process (`CTRL + C` or `CMD + C`), the build folder will be left in place
-5. Create a network so that external calls are available using the Python script in etsin-finder-search (step 7, below)
+6. Create a network so that external calls are available using the Python script in etsin-finder-search (step 7, below)
     - `cd ../..`
     - `docker swarm init`
     - `docker network create -d overlay --attachable elastic-network`
-6. Finally, run the app:
+7. Finally, run the app:
     - `docker stack deploy -c docker-compose.yml etsin-qvain`
     - This will start the app etsin-finder, which should then be available at the DNS addresses specified above in step 2.1, with hot reload enabled, and all dependencies installed inside Docker containers
     - The backend (flask) and nginx will start first, followed by the frontend (webpack)
-7. Setup `etsin-finder-search` and load test datasets from Metax:
+8. Setup `etsin-finder-search` and load test datasets from Metax:
     - Open new terminal window, go to etsin-finder-search (`git clone` the repository if not done already)
     - `cd ../etsin-finder-search`
     - `docker build -f python.dockerfile  -t etsin-search-python ./`

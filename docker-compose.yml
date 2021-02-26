@@ -1,7 +1,14 @@
-version: '3.5'
+version: '3.3'
 services:
     frontend:
       image: etsin-qvain-webpack
+      configs:
+        - source: etsin-qvain-ssl-certificate
+          target: /etc/nginx/ssl_certs/fd-test.csc.fi.crt.pem
+        - source: etsin-qvain-ssl-certificate-key
+          target: /etc/nginx/ssl_certs/fd-test.csc.fi.key.pem
+        - source: etsin-qvain-nginx-dhparam
+          target: /etc/nginx/ssl_certs/nginx_dhparam.pem
       command: npm start
       ports:
         - "8080:8080"
@@ -12,9 +19,6 @@ services:
         - type: volume
           source: static_folder
           target: /etsin_finder/frontend/static/
-        - type: volume
-          source: certificates_folder
-          target: /etc/nginx/ssl_certs/
       depends_on:
         - backend
       environment:
@@ -24,6 +28,15 @@ services:
         - elastic-network
     backend:
       image: etsin-qvain-flask
+      configs:
+        - source: etsin-qvain-app-config
+          target: /home/etsin-user/app_config
+        - source: etsin-qvain-ssl-certificate
+          target: /etc/nginx/ssl_certs/fd-test.csc.fi.crt.pem
+        - source: etsin-qvain-ssl-certificate-key
+          target: /etc/nginx/ssl_certs/fd-test.csc.fi.key.pem
+        - source: etsin-qvain-nginx-dhparam
+          target: /etc/nginx/ssl_certs/nginx_dhparam.pem
       ports:
         - "5000:5000"
       volumes:
@@ -33,9 +46,6 @@ services:
         - type: volume
           source: static_folder
           target: /etsin_finder/frontend/static/
-        - type: volume
-          source: certificates_folder
-          target: /etc/nginx/ssl_certs/
       environment:
         - base_url=0.0.0.0:5000
         - FLASK_ENV=development
@@ -59,7 +69,28 @@ services:
       networks:
         - elastic-network
     nginx:
-      image: etsin-qvain-nginx
+      image: nginx
+      configs:
+        - source: etsin-qvain-nginx-config
+          target: /etc/nginx/nginx.conf
+        - source: etsin-qvain-nginx-server-common
+          target: /etc/nginx/server_common.conf
+        - source: etsin-qvain-nginx-shared-headers
+          target: /etc/nginx/shared_headers.conf
+        - source: etsin-qvain-nginx-shared-ssl-configurations
+          target: /etc/nginx/shared_ssl_configurations.conf
+        - source: etsin-qvain-nginx-api-response-headers
+          target: /etc/nginx/api_response_headers.conf
+        - source: etsin-qvain-nginx-static-file-headers
+          target: /etc/nginx/static_file_headers.conf
+        - source: etsin-qvain-nginx-elastic-headers
+          target: /etc/nginx/elastic_headers.conf
+        - source: etsin-qvain-ssl-certificate
+          target: /etc/nginx/ssl_certs/fd-test.csc.fi.crt.pem
+        - source: etsin-qvain-ssl-certificate-key
+          target: /etc/nginx/ssl_certs/fd-test.csc.fi.key.pem
+        - source: etsin-qvain-nginx-dhparam
+          target: /etc/nginx/ssl_certs/nginx_dhparam.pem
       ports:
         - "80:80"
         - "443:443"
@@ -72,9 +103,6 @@ services:
         - type: volume
           source: static_folder
           target: /etsin_finder/frontend/static/
-        - type: volume
-          source: certificates_folder
-          target: /etc/nginx/ssl_certs/
       depends_on:
         - frontend
         - backend
@@ -84,10 +112,33 @@ services:
 volumes:
     static_folder:
       driver: local
-    certificates_folder:
-      driver: local
 networks:
   elastic-network:
     driver: overlay
     attachable: true
     external: true
+configs:
+  etsin-qvain-nginx-config:
+    external: True
+  etsin-qvain-nginx-server-common:
+    external: True
+  etsin-qvain-nginx-shared-headers:
+    external: True
+  etsin-qvain-nginx-shared-ssl-configurations:
+    external: True
+  etsin-qvain-nginx-api-response-headers:
+    external: True
+  etsin-qvain-nginx-static-file-headers:
+    external: True
+  etsin-qvain-nginx-static-file-headers:
+    external: True
+  etsin-qvain-nginx-elastic-headers:
+    external: True
+  etsin-qvain-app-config:
+    external: True
+  etsin-qvain-ssl-certificate:
+    external: True
+  etsin-qvain-ssl-certificate-key:
+    external: True
+  etsin-qvain-nginx-dhparam:
+    external: True
