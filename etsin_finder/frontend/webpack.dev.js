@@ -18,9 +18,10 @@ const config = {
   },
   devtool: 'source-map',
   devServer: {
+    host: '0.0.0.0',
     publicPath: '/',
     contentBase: './static',
-    public: 'etsin-local.fd-test.csc.fi/',
+    public: '0.0.0.0:8080',
     disableHostCheck: true,
     hot: true,
     historyApiFallback: true,
